@@ -15,14 +15,14 @@ class CreatureDetail {
         var sprites: Sprite
     }
     
-    struct Sprites: Codable {
+    struct Sprite: Codable {
         var front_default: String
     }
 
     var urlString = "" // Update with string passed in from creature clicked on
     var height = 0.0
     var weight = 0.0
-    var image_url = ""
+    var imageURL = ""
     
     func getData() async {
         print("🕸️ We are accessing the url \(urlString)")
@@ -43,7 +43,7 @@ class CreatureDetail {
             }
             self.height = returned.height
             self.weight = returned.weight
-            self.image_url = returned.sprites.front_default
+            self.imageURL = returned.sprites.front_default
         } catch {
             print("😡 ERROR: Could not create a URL from \(urlString)")
         }

@@ -25,18 +25,24 @@ struct DetailView: View {
                 .padding(.bottom)
             
             HStack {
-                Image(systemName: "figure.run.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .background(.white)
-                    .frame(width: 96, height: 96)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .shadow(radius: 9, x: 5, y: 5)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(.gray.opacity(0.5), lineWidth: 1)
-                    }
-                    .padding(.leading)
+                AsyncImage(url: URL(string: creatureDetail.imageURL)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .shadow(radius: 9, x: 5, y: 5)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(.gray.opacity(0.5), lineWidth: 1)
+                        }
+                } placeholder: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundStyle(.clear)
+                      
+                }
+                .frame(width: 96, height: 96)
+                .padding(.trailing)
                 
                 VStack (alignment: .leading) {
                     HStack (alignment: .top) {
@@ -58,7 +64,7 @@ struct DetailView: View {
                             .font(.largeTitle)
                             .bold()
                     }
-
+                    
                 }
             }
             
@@ -72,7 +78,7 @@ struct DetailView: View {
             creatureDetail.urlString = creature.url // use URL passe dover in getDetail for CreatureDetail
             await creatureDetail.getData()
         }
-
+        
     }
 }
 
