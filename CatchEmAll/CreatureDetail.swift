@@ -1,5 +1,5 @@
 //
-//  Creatures.swift
+//  CreatureDetail.swift
 //  CatchEmAll
 //
 //  Created by Anora Zhu on 10/20/24.
@@ -8,17 +8,21 @@
 import Foundation
 
 @Observable //Will watch objects for changes so that SwiftUI will redraw the interface when needed
-class Creatures {
+class CreatureDetail {
     private struct Returned: Codable {
-        var count: Int
-        var next: String
-        var results: [Creature]
+        var height: Double
+        var weight: Double
+        var sprites: Sprite
     }
     
+    struct Sprites: Codable {
+        var front_default: String
+    }
 
-    var urlString = "https://pokeapi.co/api/v2/pokemon/"
-    var count = 0
-    var creaturesArray: [Creature] = []
+    var urlString = "" // Update with string passed in from creature clicked on
+    var height = 0.0
+    var weight = 0.0
+    var image_url = ""
     
     func getData() async {
         print("🕸️ We are accessing the url \(urlString)")
@@ -37,9 +41,9 @@ class Creatures {
                 print("😡 JSON ERROR: Could not decode return JSON data")
                 return
             }
-            self.count = returned.count
-            self.urlString = returned.next
-            self.creaturesArray = returned.results
+            self.height = returned.height
+            self.weight = returned.weight
+            self.image_url = returned.sprites.front_default
         } catch {
             print("😡 ERROR: Could not create a URL from \(urlString)")
         }
